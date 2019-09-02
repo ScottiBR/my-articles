@@ -2,7 +2,7 @@
 
 To better understand how JavaScript works under the hood, we need to look at how our code is compiled, how variables and functions are Hoisted into the Lexical Environment at the compiler phase?
 
-##How the code is compiled?
+## How the code is compiled?
 
 There's a temptation to think that JavaScript is interpreted line-by-line, top-down in order, as the program executes. While that is substantially true, there's one part of that assumption which can lead to incorrect thinking about your program.
 
@@ -12,7 +12,7 @@ In the compiler phase, all functions, and variable declarations are hoisted at M
 
 ![Code Compile and Executon](https://thepracticaldev.s3.amazonaws.com/i/rlfc71uocpudolg0ny8l.png)
 
-##Hoisting and Lexical Environment
+## Hoisting and Lexical Environment
 
 Let's contextualize what is those complex words.
 
@@ -69,7 +69,7 @@ var x;
 
 This time the variable **x** will be hoisted/lifted by the compiler with the value of **undefined**, but when the execution phase starts, the **x** variable will be evaluated at the first line with the value of **"Defined"** making possible to run the else condition.
 
-##And what happens with ES6 syntax?
+## And what happens with ES6 syntax?
 
 So all the features of ES6 like `let` and `const`, what happens with them? are they hoisted? let's see
 
@@ -89,7 +89,7 @@ No, nothing like that, let's see what ECMAScript 2015 spec tells us about _TDZ_.
 
 In other words, `let` and `const` are only initialized when their assignment of value is evaluated, and that happens during the execution phase by the JS Engine, so in the example, the **x** variable will be evaluated only after called by `console.log`, that's why throws a ReferenceError.
 
-##Function Expressions or Declarations
+## Function Expressions or Declarations
 
 There are three ways to define a function in the JavaScript and those are a function declaration, function expression, and ES6 Arrow Functions so are they all Hoisted equally?
 
@@ -116,7 +116,8 @@ We already know that Function Declarations are Hoisted during the compile phase,
 
 That also happens with arrow functions, but remember `const exclamation` is hoisted as a variable, but it isn't available to be used until their value are evaluated, so there's the Reference error.
 
-##Conclusion
+## Conclusion
+
 Now that you know a little more about how variables and functions are Hoisted, and what is Lexical Environment and what the JS Engine will do with our code when it's loaded, we can progress to heavier topics like JS Engines, Even Loop, Call Stacks and Single Thread Execution on JavaScript at my [next post](https://www.google.com)
 
 Please post any feedback, questions, or requests for topics. I would also appreciate 👏 if you like the post, so others can find this too.
