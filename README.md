@@ -1,5 +1,9 @@
 Here's the list for my articles, please post any feedback, questions, or requests for topics. I would also appreciate 👏 if you like the post, so others can find this too.
 
+The hardest thing about writing these posts is often getting started, so any suggestions/requests for topics would be appreciated! I also welcome feedback on previous posts.
+
+This guide should have helped you in exploring this subject. Feel free to leave a comment down below, opinions and feedbacks are extremely useful to help everybody to learn better.
+
 # Published
 
 # In Review
