@@ -6,8 +6,8 @@ To better understand how JavaScript works under the hood, we need to look at how
 
 ## Index
 
-1. [How the code is compiled? (JS Engine)](./Article#)
-2. Hoisting and Lexical Environment
-3. And what happens with ES6 syntax?
-4. Function Expressions or Declarations
-5. Conclusion
+1. [How the code is compiled? (JS Engine)](./Article.md/#how-the-code-is-compiled)
+2. [Hoisting and Lexical Environment](./Article#hoisting-and-lexical-environment)
+3. [And what happens with ES6 syntax?](./Article#and-what-happens-with-es6-syntax)
+4. [Function Expressions or Declarations](./Article#function-expressions-or-declarations)
+5. [Conclusion](./Article#conclusion)
