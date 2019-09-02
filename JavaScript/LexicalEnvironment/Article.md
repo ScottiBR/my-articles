@@ -6,7 +6,7 @@ To better understand how JavaScript works under the hood, we need to look at how
 
 There's a temptation to think that JavaScript is interpreted line-by-line, top-down in order, as the program executes. While that is substantially true, there's one part of that assumption which can lead to incorrect thinking about your program.
 
-You could be surprised by the fact that JavaScript is an interpreted language, but uses a Just-In-Time (JIT) compiler to ensure the fastest performance. But JS engines don't get the luxury (like other language compilers) of having plenty of time to run optimization tasks, because JavaScript compilation doesn't happen in a build step ahead of time, as with other languages, they actually create executable bytecode, depending on your environment or browser (JS Engine), mere microseconds before the code is executed, that's what we call compile phase.
+You could be surprised by the fact that JavaScript is an interpreted language, but uses a Just-In-Time (JIT) compiler to ensure the fastest performance. But JS engines don't get the luxury (like other language compilers) of having plenty of time to compile your code and run all optimization tasks, because JavaScript compilation doesn't happen in a build step ahead of time, actually happens a few microseconds before code are executed by Js Engine that creates the executable bytecode, and that's what we call compile phase.
 
 In the compiler phase, all functions, and variable declarations are hoisted at Memory Heap which is called Lexical Environment. Then the Engine will execute the code from the top to the bottom adding every command at the Execution Call Stack.
 
