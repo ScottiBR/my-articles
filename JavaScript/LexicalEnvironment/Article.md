@@ -6,7 +6,7 @@ To better understand how JavaScript works under the hood, we need to look at how
 
 There's a temptation to think that JavaScript is interpreted line-by-line, top-down in order, as the program executes. While that is substantially true, there's one part of that assumption which can lead to incorrect thinking about your program.
 
-You could be surprised by the fact that JavaScript is an interpreted language, but uses a Just-In-Time (JIT) compiler to ensure the fastest performance. But JS engines don't get the luxury (like other language compilers) of having plenty of time to compile your code and run all optimization tasks, because JavaScript compilation doesn't happen in a build step ahead of time, actually happens a few microseconds before code are executed by Js Engine that creates the executable bytecode, and that's what we call compile phase.
+You could be surprised by the fact that JavaScript is an interpreted language, but uses a Just-In-Time (JIT) compiler to ensure the fastest performance, although, the JS engines don't get the luxury (like other compilers) of having plenty of time to compile your code and run all optimization tasks, because JavaScript compilation doesn't happen in a build step ahead of time, actually, it happens a few microseconds before the code are executed by Js Engine which creates the executable bytecode, and that's what we call compile phase.
 
 In the compiler phase, all functions, and variable declarations are hoisted at Memory Heap which is called Lexical Environment. Then the Engine will execute the code from the top to the bottom adding every command at the Execution Call Stack.
 
@@ -20,7 +20,7 @@ Let's contextualize what is those complex words.
 
 > _Lexical Environment_ is a data structure that holds identifier-variable mapping on the memory heap.
 
-Too many concepts? difficult to understand? let make it more simple. A few seconds before your code it is executed the compiler will search your code for declarations of functions and variables, and store them into the memory so that they can be used even before they are declared in the source code.
+Difficult to understand? Too many concepts? let's make it more simple. A few seconds before your code it is executed, the compiler will go through every line collecting variables and function declarations and storing those into the memory, so that they can be optimized and utilized even before his own declaration in the source code.
 
 Let's see if those concepts can be put into practice.
 
@@ -118,6 +118,8 @@ That also happens with arrow functions, but remember `const exclamation` is hois
 
 ## Conclusion
 
-Now that you know a little more about how variables and functions are Hoisted, and what is Lexical Environment and what the JS Engine will do with our code when it's loaded, we can progress to heavier topics like JS Engines, Even Loop, Call Stacks and Single Thread Execution on JavaScript at my [next post](https://www.google.com)
+This is an important foundation in the understanding of how JavaScript works under the hood, and the main conclusion that can be drawn is that **all declarations in JavaScript function, var, let, const even classes, are hoisted at the compiler phase, but with different assignments of value**. Variables are hoisted with the value of `undefined`, except `const`and `let` their are only initialized when their assignment of value is evaluated, and that happens during the execution phase, before that they are in **TDZ**. We also saw that functions declarations are hoisted and evaluated normally, but function expressions are treated exactly like variables. I hope now you guys could glimpse some functionalities that run on our daily code in JS.
+
+In case you want to go deeper at some concept, go to the [References](https://github.com/ScottiBR/my-articles/blob/master/JavaScript/LexicalEnvironment/References.md)
 
 Please post any feedback, questions, or requests for topics. I would also appreciate 👏 if you like the post, so others can find this too.
