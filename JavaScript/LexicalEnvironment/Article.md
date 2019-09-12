@@ -1,12 +1,10 @@
-# JavaScript Compiler and Lexical Environment
-
 To better understand how JavaScript works under the hood, we need to look at how our code is compiled, how variables and functions are Hoisted into the Lexical Environment at the compiler phase?
 
 ## How the code is compiled?
 
 There's a temptation to think that JavaScript is interpreted line-by-line, top-down in order, as the program executes. While that is substantially true, there's one part of that assumption which can lead to incorrect thinking about your program.
 
-You could be surprised by the fact that JavaScript is an interpreted language, but uses a Just-In-Time (JIT) compiler to ensure the fastest performance. But JS engines don't get the luxury (like other language compilers) of having plenty of time to run optimization tasks, because JavaScript compilation doesn't happen in a build step ahead of time, as with other languages, they actually create executable bytecode, depending on your environment or browser (JS Engine), mere microseconds before the code is executed, that's what we call compile phase.
+You could be surprised by the fact that JavaScript is an interpreted language, but uses a Just-In-Time (JIT) compiler to ensure the fastest performance, although, the JS engines don't get the luxury (like other compilers) of having plenty of time to compile your code and run all optimization tasks, because JavaScript compilation doesn't happen in a build step ahead of time, actually, it happens a few microseconds before the code are executed by Js Engine which creates the executable bytecode, and that's what we call compile phase.
 
 In the compiler phase, all functions, and variable declarations are hoisted/lifted at Memory Heap which is called Lexical Environment. Then the Engine will execute the code from the top to the bottom adding every command at the Execution Call Stack.
 
@@ -20,7 +18,7 @@ Let's contextualize what is those complex words.
 
 > _Lexical Environment_ is a data structure that holds identifier-variable mapping on the memory heap.
 
-Too many concepts? difficult to understand? let make it more simple. A few seconds before your code it is executed the compiler will search your code for declarations of functions and variables, and store them into the memory so that they can be used even before they are declared in the source code.
+Difficult to understand? Too many concepts? let's make it more simple. A few seconds before your code it is executed, the compiler will go through every line collecting variables and function declarations and storing those into the memory, so that they can be optimized and utilized even before his own declaration in the source code.
 
 Let's see if those concepts can be put into practice.
 
@@ -81,7 +79,7 @@ console.log(x); //ReferenceError: x is not defined
 let x = "Hello";
 ```
 
-**All declarations in JavaScript function, var, let, const even classes, are hoisted at the compiler phase**, but while the var declarations are initialized with undefined, `let` and `const` declarations remain uninitialized, so where are `x` at first line of the example? he was in a place that we call "**Temporal Dead Zone**".
+**All declarations in JavaScript function, var, let, const even classes, are hoisted at the compiler phase**, but while the var declarations are initialized with undefined, `let` and `const` declarations remain uninitialized, so where is`x` at first line of the example? he was in a place that we call "**Temporal Dead Zone**".
 
 ![TDZ](https://media1.giphy.com/media/vwT1bQ8zojmWQFx297/giphy.gif?cid=790b76116e2deb8ea24a2671b46cc66742667737a619f163&rid=giphy.gif)
 
@@ -118,7 +116,7 @@ We already know that Function Declarations are Hoisted during the compile phase,
 
 At line 2, we call the function `world()`, but actually we are calling the variable `world` that was hoisted with the same rule as any other variable with the default value of `undefined`, Therefore, when the execution reached line 2 and tried to call `world()`, it failed returning a `TypeError` , because undefined is not a function!
 
-That also happens with the arrow function, but with a little difference that ES6 Syntax is initialized only at value evaluation on execution phase, so there's the Reference error.
+That also happens with the arrow function, but with a little difference that ES6 Syntax is initialized only at value evaluation on the execution phase, so there's the Reference error.
 
 ## Conclusion
 
