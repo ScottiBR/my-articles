@@ -4,7 +4,7 @@ To better understand how JavaScript works under the hood, we need to look at how
 
 There's a temptation to think that JavaScript is interpreted line-by-line, top-down in order, as the program executes. While that is substantially true, there's one part of that assumption which can lead to incorrect thinking about your program.
 
-You could be surprised by the fact that JavaScript is an interpreted language, but uses a Just-In-Time (JIT) compiler to ensure the fastest performance, although, the JS engines don't get the luxury (like other compilers) of having plenty of time to compile your code and run all optimization tasks, because JavaScript compilation doesn't happen in a build step ahead of time, actually, it happens a few microseconds before the code are executed by Js Engine which creates the executable bytecode, and that's what we call compile phase.
+You could be surprised by the fact that JavaScript is an interpreted language, but uses a Just-In-Time (JIT) compiler (at least at chrome) to ensure the fastest performance, although, the JS engines don't get the luxury (like other compilers) of having plenty of time to compile your code and run all optimization tasks, because JavaScript compilation doesn't happen in a build step ahead of time, actually, it happens a few microseconds before the code are executed by Js Engine which creates the executable bytecode, and that's what we call compile phase.
 
 In the compiler phase, all functions, and variable declarations are hoisted/lifted at Memory Heap which is called Lexical Environment. Then the Engine will execute the code from the top to the bottom adding every command at the Execution Call Stack.
 
@@ -18,7 +18,7 @@ Let's contextualize what is those complex words.
 
 > _Lexical Environment_ is a data structure that holds identifier-variable mapping on the memory heap.
 
-Difficult to understand? Too many concepts? let's make it more simple. A few seconds before your code it is executed, the compiler will go through every line collecting variables and function declarations and storing those into the memory, so that they can be optimized and utilized even before his own declaration in the source code.
+Difficult to understand? Too many concepts? let's make it more simple. A few seconds before your code it is executed, the compiler will go through every line collecting variables and function declarations and storing those into the memory, so that they can be optimized and utilized even before his own declaration in the source code. In other words, lexical environment it's just a fancy way to say "local memory scope".
 
 Let's see if those concepts can be put into practice.
 

@@ -1,3 +1,26 @@
+# Porque aprender esses conceitos
+
+Why learn closure when I could be learning Node or React?
+
+Shouldn’t I be spending my time with understanding frameworks - they’re what I actually do on the job 👩🏽‍💻 Why should I learn closure in JavaScript??
+
+Becoming a developer who has mastery over their tools requires understanding what’s going on under-the-hood.
+
+True mastery means understanding the core principles and building up from them. That being said, being a developer is about having to make things work without understanding everything.
+
+They call it choosing your ‘level of abstraction’. You cannot understand everything down to the silicon.
+
+But that’s not the purpose of this course. The purpose of this course is for you take time out of ‘making it work to meet deadlines’ to truly understand a concept that will allow you to accelerate all your future engineering.
+
+Every time you understand something deeply it’s an investment for the future! It’s like building a system that’s more flexible and ready to scale. It’ll take time but it will pay off in the rest of your engineering ⏱.
+
+# porposta
+
+Não falar dacompilation phase no primeiro capitulo
+no segundo capitulo colocar Lexical Scope e explicar a metafora do prédio do kyle
+no terceiro falar sobre lexical envirioment e call stack
+no quarto hoisting e continua
+
 # Hoisting é uma metafora
 
 Apesar de ser especificada no TC39, hoisting é an language convention created academicamente to discuss the idea of lexical envirioment, without soo much overhead
