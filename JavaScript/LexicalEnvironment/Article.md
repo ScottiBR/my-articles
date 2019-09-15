@@ -4,21 +4,69 @@ To better understand how JavaScript works under the hood, we need to look at how
 
 There's a temptation to think that JavaScript is interpreted line-by-line, top-down in order, as the program executes. While that is substantially true, there's one part of that assumption which can lead to incorrect thinking about your program.
 
-You could be surprised by the fact that JavaScript is an interpreted language, but uses a Just-In-Time (JIT) compiler (at least at chrome) to ensure the fastest performance, although, the JS engines don't get the luxury (like other compilers) of having plenty of time to compile your code and run all optimization tasks, because JavaScript compilation doesn't happen in a build step ahead of time, actually, it happens a few microseconds before the code are executed by Js Engine which creates the executable bytecode, and that's what we call compile phase.
+JavaScript runs over an engine (Chrome and NodeJS have the V8 Engine) who is responsible for interpreted the code, but those engines don't have plenty of time to compile and run all optimization tasks before it's executed, like other languages like Java or C# have.
 
-In the compiler phase, all functions, and variable declarations are hoisted/lifted at Memory Heap which is called Lexical Environment. Then the Engine will execute the code from the top to the bottom adding every command at the Execution Call Stack.
+That's why JavaScript creates an Execution Context in the following two stages:
+
+1. Compilation / Creation Phase
+2. Execution Phase
+
+At the compilation phase, the code is scanned and variables and functions are hoisted, all that happening a few microseconds before the execution phase.
+
+At the execution phase, the Engine runs the code line-by-line, top-down in order, and every time a function is about to be executed it's created a context for then and added to the Stack. Once all the code of the function is executed, JS engines pop out that function.
+
+Each function call creates a new context, which creates a Lexical Scope where anything declared inside of the function can not be directly accessed from outside the current function scope.
+
+```js
+function foo(i) {
+  if (i === 3) {
+    return;
+  } else {
+    foo(++i);
+  }
+}
+foo(0);
+```
+
+The code simply calls itself 3 times, incrementing the value of ´i´ by 1. Each time the function foo is called, a new execution context is created. Once a context has finished executing, it pops off the stack and control returns to the context below it until the global context is reached again.
+
+![Execution Context](https://davidshariff.com/blog/wp-content/uploads/2012/06/es1.gif)
+
+Knowing that compile and execution phase is distinct, it's essential to understand how some key concepts of how the language works.
+
+## Hoisting is a Myth?
+
+Despite it is specified at TC39, hoisting is a convention created to discuss the idea of lexical environment, without soo much overhead.
+
+Let's see why
+
+```js
+foo("Scotti");
+
+function foo(name) {
+  console.log(name);
+}
+```
+
+In this case, the function was called before it's definition, but it works, and seeking an easy explanation for that people starts saying that the function is lifted/moved up at the beginning of the code, like this.
+
+```js
+function foo(name) {
+  console.log(name);
+}
+
+foo("Scotti");
+```
+
+But that's incorrect, there's no such thing as lifting functions and variables. Actually, in the compiler phase, all functions and variables declarations are **Hoisted** at Memory Heap which is called Lexical Environment. Then the Engine will execute the code from the top to the bottom adding every scope at the Execution Call Stack.
 
 ![Code Compile and Executon](https://thepracticaldev.s3.amazonaws.com/i/rlfc71uocpudolg0ny8l.png)
-
-## Hoisting and Lexical Environment
-
-Let's contextualize what is those complex words.
 
 > _Hoisting_ refers to the default behavior of Javascript to process and put all variables and functions declarations into memory first during compile phase of its execution context, regardless where they are written in code.
 
 > _Lexical Environment_ is a data structure that holds identifier-variable mapping on the memory heap.
 
-Difficult to understand? Too many concepts? let's make it more simple. A few seconds before your code it is executed, the compiler will go through every line collecting variables and function declarations and storing those into the memory, so that they can be optimized and utilized even before his own declaration in the source code. In other words, lexical environment it's just a fancy way to say "local memory scope".
+Difficult? Too many concepts? let's make it more simple. A few seconds before your code it is executed, the compiler will go through every line collecting variables and function declarations and storing those into the memory, so that they can be optimized and utilized even before his declaration in the source code. In other words, lexical environment it's just a fancy way to say "local memory scope".
 
 Let's see if those concepts can be put into practice.
 
@@ -69,7 +117,9 @@ var x;
 
 This time the variable `x` will be hoisted/lifted by the compiler with the value of `undefined`, but when the execution phase starts, the `x` variable will be evaluated at the first line with the value of `Defined` making possible to run the else condition.
 
-## And what happens with ES6 syntax?
+There's also a lot of confusion about variables undefined and undeclared (Reference Error), when a variable is undefined, it means that the variable has been declared at the compiler phase, but not initialized, and undeclared are variables that weren't declared at the lexical environment, or the JS Engine doesn't find an available reference for then.
+
+## What happens with ES6 syntax?
 
 So all the features of ES6 like `let` and `const`, what happens with them? are they hoisted? let's see
 
@@ -89,26 +139,41 @@ No, nothing like that, let's see what ECMAScript 2015 spec tells us about _TDZ_.
 
 In other words, `let` and `const` are only initialized when their assignment of value is evaluated, and that happens during the execution phase, so in the example, the `x` variable will be evaluated only after called by `console.log`, that's why throws a ReferenceError.
 
+Now let's see what happens when we introduce the block scope.
+
+```js
+var teacher = "Guilherme";
+{
+  console.log(teacher); // ReferenceError or TDZ error
+  let teacher = "Scotti";
+}
+```
+
+Now the global scope has a `teacher` variable with the value of 'Guilherme', but when the Engine enters the block scope, it creates another execution context and hoisted the variable `teacher` into the TDZ of this block context. So, when the `console.log` runs, there's the variable `teacher` is unreachable.
+
+To put it briefly, TDZ means don't touch that until it is initialized.
+
+![don't touch that](https://media1.giphy.com/media/CvsQzv9hZe2Ry/giphy.gif?cid=790b7611cd36279a241394a3cc080910cf7b857e101a6a6a&rid=giphy.gif)
+
+The whole point of the TDZ is to make it easier to catch errors where accessing a variable before it’s declared in user code leads to unexpected behavior. This happened a lot with ES5 due to hoisting and poor coding conventions. In ES6 it’s easier to avoid.
+
 ## Function Expressions or Declarations
 
-There are three ways to define a function in the JavaScript and those are a function declaration, function expression, and ES6 Arrow Functions so are they all Hoisted equally?
+There are three ways to define a function in the JavaScript and those are a function declaration (assigning the function value into a variable), function expression, and ES6 Arrow Functions so are they all Hoisted equally?
 
 ```javascript
 hello(); // "Hello!"
 world(); // TypeError: world is not a function
 exclamation(); // ReferenceError: exclamation is not defined
 
-//Function Declaration
 function hello() {
   console.log("Hello!");
 }
 
-//Function Expression
 var world = function() {
   console.log("World");
 };
 
-//ES6 Arrow Function Expression
 const exclamation = () => console.log("!");
 ```
 
@@ -120,7 +185,9 @@ That also happens with the arrow function, but with a little difference that ES6
 
 ## Conclusion
 
-This is an important foundation in the understanding of how JavaScript works under the hood, and the main conclusion that can be drawn is that **all declarations in JavaScript function, var, let, const even classes, are hoisted at the compiler phase, but with different assignments of value**. Variables are hoisted with the value of `undefined`, except `const`and `let` their are only initialized when their assignment of value is evaluated, and that happens during the execution phase, before that they are in **TDZ**. We also saw that functions declarations are hoisted and evaluated normally, but function expressions are treated exactly like variables. I hope now you guys could glimpse some functionalities that run on our daily code in JS.
+This is an important foundation in the understanding of how JavaScript works under the hood, and the main conclusion that can be drawn is that **all declarations in JavaScript function, var, let, const even classes, are hoisted at the compiler phase, but with different assignments of value**. Variables are hoisted with the value of `undefined`, except `const` and `let` their are only initialized when their assignment of value is evaluated, and that happens during the execution phase, before that they are in **TDZ**.
+
+We also saw that functions declarations are hoisted and evaluated normally, but function expressions are treated exactly like variables. I hope now you guys could glimpse some functionalities that run on our daily code in JS.
 
 In case you want to go deeper at some concept, go to the [References](https://github.com/ScottiBR/my-articles/blob/master/JavaScript/LexicalEnvironment/References.md)
 

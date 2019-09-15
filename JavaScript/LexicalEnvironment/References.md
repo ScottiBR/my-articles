@@ -8,3 +8,6 @@
 - [Deep Js Foundations](https://static.frontendmasters.com/resources/2019-03-07-deep-javascript-v2/deep-js-foundations-v2.pdf)
 - [Functional Light JS](http://static.frontendmasters.com/resources/2019-05-06-functional-light-v3/functional-light-v3.pdf)
 - [JavaScript The Hard Parts](https://www.youtube.com/watch?v=3IV7WajC-o4)
+- [JavaScript Part 1](https://medium.com/the-andela-way/understanding-javascript-part-1-dbcca37b434d)
+- [Execution Context, scope chain and JavaScript Interals](https://hackernoon.com/execution-context-in-javascript-319dd72e8e2c)
+- [What is the Execution Context](http://davidshariff.com/blog/what-is-the-execution-context-in-javascript/)

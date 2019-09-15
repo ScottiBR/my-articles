@@ -16,10 +16,12 @@ Every time you understand something deeply it’s an investment for the future! 
 
 # porposta
 
-Não falar dacompilation phase no primeiro capitulo
-no segundo capitulo colocar Lexical Scope e explicar a metafora do prédio do kyle
-no terceiro falar sobre lexical envirioment e call stack
+Não falar da compilation phase no primeiro capitulo passar para Execution envirioment
+no terceiro falar sobre Execution envirioment
+call stack event loop
 no quarto hoisting e continua
+Lexical Scope e explicar a metafora do prédio do kyle
+Closure
 
 # Hoisting é uma metafora
 
@@ -32,6 +34,17 @@ var a = b;
 var b = 2;
 console.log(b); //2
 console.log(a); //??
+```
+
+```js
+var a;
+var b;
+console.log(a); //undefined
+console.log(b); //undefined
+a = b;
+b = 2;
+console.log(b); //2
+console.log(a); //undefined
 ```
 
 # Hoisting move variable declarations and function declarations to the top of our code
@@ -57,6 +70,10 @@ depois vai iniciar o block scope, encontrar uma variável teacher nesse bloco, e
 
 existe por um motivo academico, quando a equipe do ecmascript pensaram em criar const, eles encontraram um dilema, se o const inicializar undefined igual var, e depois assume um valor ao ser inicializado, quer dizer que é uma constante que em determinado periodo tem valor undefined e depois um valor definido, isso está errado constante tem que ser única imutável...
 então criaram o TDZ para não permitir esse comportamento, e como o let se encaixava mais nesse contexto adicionaram juntamente no pacode do TDZ
+
+may i quote Allen Wirfs-Brock project editor of the ECMAScript 2015
+
+> [As far as I'm concerned the motivating feature for TDZs is to provide a rational semantics for const. There was significant technical discussion of that topic and TDZs emerged as the best solution. An alternative argument you could make would be to eliminate const.](https://mail.mozilla.org/pipermail/es-discuss/2012-September/024996.html)
 
 mostrar as specs para provar
 
