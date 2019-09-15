@@ -1,21 +1,15 @@
-To better understand how JavaScript works under the hood, we need to look at how our code is compiled, how variables and functions are Hoisted into the Lexical Environment at the compiler phase?
+To better understand how JavaScript works under the hood, we need to look at how our code is compiled, and how variables and functions are Hoisted.
 
 ## How the code is compiled?
 
-There's a temptation to think that JavaScript is interpreted line-by-line, top-down in order, as the program executes. While that is substantially true, there's one part of that assumption which can lead to incorrect thinking about your program.
-
-JavaScript runs over an engine (Chrome and NodeJS have the V8 Engine) who is responsible for interpreted the code, but those engines don't have plenty of time to compile and run all optimization tasks before it's executed, like other languages like Java or C# have.
+There's a temptation to think that JavaScript is interpreted line-by-line, top-down in order, as the program executes and therefore not compiled. While that is substantially true, there's one part of that assumption which can lead to incorrect thinking about your program. JavaScript runs over an engine (Chrome and NodeJS have the V8 Engine) who is responsible for interpreted the code, but those engines don't have plenty of time to compile and run all optimization tasks before it's executed, like other languages like Java or C# have.
 
 That's why JavaScript creates an Execution Context in the following two stages:
 
-1. Compilation / Creation Phase
-2. Execution Phase
+- Compilation / Creation Phase
+- Execution Phase
 
-At the compilation phase, the code is scanned and variables and functions are hoisted, all that happening a few microseconds before the execution phase.
-
-At the execution phase, the Engine runs the code line-by-line, top-down in order, and every time a function is about to be executed it's created a context for then and added to the Stack. Once all the code of the function is executed, JS engines pop out that function.
-
-Each function call creates a new context, which creates a Lexical Scope where anything declared inside of the function can not be directly accessed from outside the current function scope.
+At the execution phase, the Engine runs the code line-by-line, top-down in order, and every time a function is about to be executed it's created a context for then and added to the Stack. Once all the code of the function is executed, JS engines pop out that function. Each function call creates a new context, which creates a Lexical Scope where anything declared inside of the function can not be directly accessed from outside the current function scope.
 
 ```js
 function foo(i) {
@@ -32,13 +26,11 @@ The code simply calls itself 3 times, incrementing the value of ´i´ by 1. Each
 
 ![Execution Context](https://davidshariff.com/blog/wp-content/uploads/2012/06/es1.gif)
 
-Knowing that compile and execution phase is distinct, it's essential to understand how some key concepts of how the language works.
+But at the compilation phase, the code is scanned and variables and functions are **hoisted**, all that happening a few microseconds before the execution phase. Knowing that, it's essential to understand how some key concepts of how the language works.
 
-## Hoisting is a Myth?
+## What is Hoisting?
 
-Despite it is specified at TC39, hoisting is a convention created to discuss the idea of lexical environment, without soo much overhead.
-
-Let's see why
+Most commonly, people will explain hoisting as **declarations of variables and functions being moved to top of your code**, while this is what appears to be happening, it’s important to understand exactly what is going on. Because that definition **I'ts a Myth** , a convention created to discuss the idea of lexical environment, without soo much overhead.
 
 ```js
 foo("Scotti");
@@ -58,15 +50,17 @@ function foo(name) {
 foo("Scotti");
 ```
 
-But that's incorrect, there's no such thing as lifting functions and variables. Actually, in the compiler phase, all functions and variables declarations are **Hoisted** at Memory Heap which is called Lexical Environment. Then the Engine will execute the code from the top to the bottom adding every scope at the Execution Call Stack.
-
-![Code Compile and Executon](https://thepracticaldev.s3.amazonaws.com/i/rlfc71uocpudolg0ny8l.png)
+But that's incorrect, there's no such thing as lifting functions and variables, you see, the code isn’t moving anywhere. It isn’t magically being moved to the top of the file. What's Actually happening is that at the compiler phase, all functions and variables declarations are **Hoisted** at Memory Heap which is called Lexical Environment. Then the Engine will execute the code from the top to the bottom adding every scope at the Execution Call Stack.
 
 > _Hoisting_ refers to the default behavior of Javascript to process and put all variables and functions declarations into memory first during compile phase of its execution context, regardless where they are written in code.
 
 > _Lexical Environment_ is a data structure that holds identifier-variable mapping on the memory heap.
 
+![Code Compile and Executon](https://thepracticaldev.s3.amazonaws.com/i/rlfc71uocpudolg0ny8l.png)
+
 Difficult? Too many concepts? let's make it more simple. A few seconds before your code it is executed, the compiler will go through every line collecting variables and function declarations and storing those into the memory, so that they can be optimized and utilized even before his declaration in the source code. In other words, lexical environment it's just a fancy way to say "local memory scope".
+
+![Execution Context animated](https://thepracticaldev.s3.amazonaws.com/i/yhpzy8uvjp5ls966n181.gif)
 
 Let's see if those concepts can be put into practice.
 
@@ -81,9 +75,11 @@ function sayHello() {
 }
 ```
 
-So in this example, the compiler will run thought the code and find the function `sayHello` and save his reference into the memory, making it available to be called in the execution phase, returning `'Hello'`.
+So in this example, the compiler will run thought the code and find the function `sayHello` and save his reference into the memory, making it available to be called in the execution phase, returning `'Hello'`, but why the `world` variable is undefined?
 
-A similar execution also happens with the variable `world` it will be hoisted at the memory, and at the execution phase the variable is called, but since it isn't initialized yet the returned value is `undefined`, here's another example.
+> JavaScript only hoists variable declarations, initializations are not hoisted.
+
+So the variable declaration `world` will be hoisted at the memory, and at the execution phase the variable is called, but since it isn't initialized yet the returned value is `undefined`, here's another example.
 
 ```javascript
 var x;
