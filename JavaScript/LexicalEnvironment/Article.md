@@ -1,36 +1,32 @@
-To better understand how JavaScript works under the hood, we need to look at how our code is compiled, and how variables and functions are Hoisted.
+To better understand how JavaScript works under the hood, we need to look at how our code are executed. By the end of this post, you should have a clearer understanding about what the interpreter is trying to do, why some functions / variables can be used before they are declared and how their value is really determined.
 
-## How the code is compiled?
+## How JavaScript actually works under the hood?
 
-There's a temptation to think that JavaScript is interpreted line-by-line, top-down in order, as the program executes and therefore not compiled. While that is substantially true, there's one part of that assumption which can lead to incorrect thinking about your program. JavaScript runs over an engine (Chrome and NodeJS have the V8 Engine) who is responsible for interpreted the code, but those engines don't have plenty of time to compile and run all optimization tasks before it's executed, like other languages like Java or C# have.
+There is a temptation to think that JavaScript code is interpreted line-by-line, top-down in order, as the program executes and therefore not compiled. While that is substantially true, there's one part of that assumption which can lead to incorrect thinking about the language.
 
-That's why JavaScript creates an Execution Context in the following two stages:
+According to our bible [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
-- Compilation / Creation Phase
-- Execution Phase
+> JavaScript is a lightweight, **interpreted** language
 
-At the execution phase, the Engine runs the code line-by-line, top-down in order, and every time a function is about to be executed it's created a context for then and added to the Stack. Once all the code of the function is executed, JS engines pop out that function. Each function call creates a new context, which creates a Lexical Scope where anything declared inside of the function can not be directly accessed from outside the current function scope.
+But that concept diverges a lot, some academics afirm that is a **compiled** language, a lot of blogs and posts say that is a **hybrid** language, and begginners doesn't understand anything. The official standard specification says:
 
-```js
-function foo(i) {
-  if (i === 3) {
-    return;
-  } else {
-    foo(++i);
-  }
-}
-foo(0);
-```
+> JavaScript is a interpreter-agnostic language
 
-The code simply calls itself 3 times, incrementing the value of ´i´ by 1. Each time the function foo is called, a new execution context is created. Once a context has finished executing, it pops off the stack and control returns to the context below it until the global context is reached again.
+Therefore there is not a official JS Engine for the language, and the comunnity created a lot of Engines to supress that need.
 
-![Execution Context](https://davidshariff.com/blog/wp-content/uploads/2012/06/es1.gif)
+![JS Engines](https://thepracticaldev.s3.amazonaws.com/i/f245q94qb8yblvdjmcf7.PNG)
 
-But at the compilation phase, the code is scanned and variables and functions are **hoisted**, all that happening a few microseconds before the execution phase. Knowing that, it's essential to understand how some key concepts of how the language works.
+Each engine operates differently, with specific nomeclatures and implementation details, but in this article the focus will be more on the general aspect of code execution. Those engines are responsible for interpreted JavaScript code, but they don't have plenty of time to "compile" before it's executed, like other languages like Java or C# have. Therefore when the JavaScript code runs in a browser (or in Node), the engine goes through a series of steps, and one of those are the execution context.
 
-## What is Hoisting?
+> Execution context is defined as the environment in which JavaScript code is executed.
 
-Most commonly, people will explain hoisting as **declarations of variables and functions being moved to top of your code**, while this is what appears to be happening, it’s important to understand exactly what is going on. Because that definition **I'ts a Myth** , a convention created to discuss the idea of lexical environment, without soo much overhead.
+During the creation of the execution context, the Engine goes trough the code in two stages, the **compiler or creation phase**, and the **execution phase**. Those distinct steps lead to the misunderstanding between interpreted or compiled language.
+
+At the compilation phase, the code is scanned and variables and functions are **hoisted**, all that happening a few microseconds before the execution phase. Knowing that, it's essential to understand how some key concepts of how the language works.
+
+## Hoisting
+
+Most commonly, people will explain hoisting as **declarations of variables and functions being moved to top of your code**, while this is what appears to be happening, it’s important to understand exactly what is going on. Because that definition **is a Myth** , a convention created to discuss the idea of lexical environment, without soo much overhead.
 
 ```js
 foo("Scotti");
@@ -65,17 +61,17 @@ Difficult? Too many concepts? let's make it more simple. A few seconds before yo
 Let's see if those concepts can be put into practice.
 
 ```javascript
-sayHello(); // Hello
+say("Hello"); // Hello
 console.log(world); // world is undefined
 
 var world = "World";
 
-function sayHello() {
-  console.log("Hello");
+function say(word) {
+  console.log(word);
 }
 ```
 
-So in this example, the compiler will run thought the code and find the function `sayHello` and save his reference into the memory, making it available to be called in the execution phase, returning `'Hello'`, but why the `world` variable is undefined?
+So in this example, the compiler will run thought the code and find the function `say` and save his reference into the memory, making it available to be called in the execution phase, returning `'Hello'`, but why the `world` variable is undefined?
 
 > JavaScript only hoists variable declarations, initializations are not hoisted.
 
@@ -138,14 +134,14 @@ In other words, `let` and `const` are only initialized when their assignment of 
 Now let's see what happens when we introduce the block scope.
 
 ```js
-var teacher = "Guilherme";
+var name = "Guilherme";
 {
-  console.log(teacher); // ReferenceError or TDZ error
-  let teacher = "Scotti";
+  console.log(name); // ReferenceError or TDZ error
+  let name = "Scotti";
 }
 ```
 
-Now the global scope has a `teacher` variable with the value of 'Guilherme', but when the Engine enters the block scope, it creates another execution context and hoisted the variable `teacher` into the TDZ of this block context. So, when the `console.log` runs, there's the variable `teacher` is unreachable.
+Now the global scope has a `name` variable with the value of 'Guilherme', but when the Engine enters the block scope, it creates another execution context and hoisted the variable `name` into the TDZ of this block context. So, when the `console.log` runs, there's the variable `name` is unreachable.
 
 To put it briefly, TDZ means don't touch that until it is initialized.
 
