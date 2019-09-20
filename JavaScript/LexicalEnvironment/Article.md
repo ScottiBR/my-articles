@@ -20,7 +20,7 @@ Each engine has differently implementation details, but in this article, the foc
 
 > Execution context is defined as the environment in which the JavaScript code is executed.
 
-During the creation of the execution context, the Engine goes trough the code in two stages, the **compiler or creation phase**, and the **execution phase**. Those distinct steps lead to the misunderstanding between interpreted or compiled language.
+During the creation of the execution context, the Engine goes trough the code in two stages, the **compiler or creation phase**, and the **execution phase**. Thus lead to the misunderstanding between interpreted or compiled language.
 
 At the compilation phase, the code is scanned and variables and functions are **hoisted**, all that happening a few microseconds before the execution phase. Knowing that it's essential to understand how some key concepts of how the language works.
 
@@ -64,11 +64,11 @@ Let's see if those concepts can be put into practice.
 say("Hello"); // Hello
 console.log(world); // world is undefined
 
-var world = "World";
-
 function say(word) {
   console.log(word);
 }
+
+var world = "World";
 ```
 
 So in this example, the compiler will run thought the code and find the function `say` and save his reference into the memory, making it available to be called in the execution phase, returning `'Hello'`, but why the `world` variable is undefined?
