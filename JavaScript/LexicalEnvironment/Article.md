@@ -135,7 +135,8 @@ Now let's see what happens when we introduce the block scope.
 
 ```js
 var name = "Guilherme";
-{
+displayName();
+function displayName() {
   console.log(name); // ReferenceError or TDZ error
   let name = "Scotti";
 }
@@ -154,12 +155,12 @@ The whole point of the TDZ is to make it easier to catch errors where accessing 
 There are three ways to define a function in the JavaScript and those are a function declaration (assigning the function value into a variable), function expression, and ES6 Arrow Functions so are they all Hoisted equally?
 
 ```javascript
-hello(); // "Hello!"
+hello(); // "Hello"
 world(); // TypeError: world is not a function
 exclamation(); // ReferenceError: exclamation is not defined
 
 function hello() {
-  console.log("Hello!");
+  console.log("Hello");
 }
 
 var world = function() {

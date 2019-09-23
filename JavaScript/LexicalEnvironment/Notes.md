@@ -144,3 +144,50 @@ foo(0);
 The code simply calls itself 3 times, incrementing the value of ´i´ by 1. Each time the function foo is called, a new execution context is created. Once a context has finished executing, it pops off the stack and control returns to the context below it until the global context is reached again.
 
 ![Execution Context](https://davidshariff.com/blog/wp-content/uploads/2012/06/es1.gif)
+
+```javascript
+say("Hello");
+console.log(world);
+
+var world = "World";
+
+function say(word) {
+  console.log(word);
+}
+a) "Hello"  "World"
+b) undefined  undefined
+c) undefined  "World"
+d) "Hello"  undefined
+
+var name = "Guilherme";
+displayName();
+
+function displayName() {
+  console.log(name);
+  let name = "Scotti";
+}
+
+a) "Guilherme"
+b) "Scotti"
+c) ReferenceError
+d) undefined
+
+
+
+hello();
+
+function hello() {
+  console.log("Hello");
+  world();
+}
+
+const world = function() {
+  console.log("World");
+};
+
+
+a) "Hello"    "World"
+b) "Hello"    ReferenceError
+c) "Hello"    undefined
+d) undefined  ReferenceError
+```
