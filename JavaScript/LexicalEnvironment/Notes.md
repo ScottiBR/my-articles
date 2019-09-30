@@ -81,10 +81,12 @@ e eu acho que eles fizeram um trabalho meio duvidosso nesse ponto, porque
 
 ```js
 const words = "Hello TDC";
-words = "Bye TDC"; // Type error
+words = "Bye TDC";
+// Type error
 
 const teachers = ["Hello", "TDC"];
-teachers[0] = "bye"; // ['Bye','TDC'];
+teachers[0] = "bye";
+// ['Bye','TDC'];
 ```
 
 e isso é um problema que já ocorreu no java por exemplo, onde eles tiraram a palavra const para colocar final no lugar, evitando esse tipo de associação de uma constante que pode ser assigned to other value
@@ -102,16 +104,13 @@ Recursividade mutual, mutural recursion
 
 ```js
 a(1);
-
 function a(x) {
   if (x > 20) return x;
   return b(x + 2);
 }
-
 function b(x) {
   return c(x) + 1;
 }
-
 function c(x) {
   return a(x * 2);
 }
@@ -154,16 +153,17 @@ var world = "World";
 function say(word) {
   console.log(word);
 }
-a) "Hello"  "World"
-b) undefined  undefined
+a) "Hello"    "World"
+b) "Hello"    ReferenceError
 c) undefined  "World"
-d) "Hello"  undefined
+d) "Hello"    undefined
 
 var name = "Guilherme";
 displayName();
 
 function displayName() {
   console.log(name);
+
   let name = "Scotti";
 }
 
@@ -190,4 +190,27 @@ a) "Hello"    "World"
 b) "Hello"    ReferenceError
 c) "Hello"    undefined
 d) undefined  ReferenceError
+```
+
+```javascript
+hello();
+// TypeError: hello is not a function
+world();
+// ReferenceError: exclamation is not defined
+
+var hello = function() {
+  console.log("Hello");
+};
+const World = () => console.log("World");
+
+
+
+core execution code
+/*...*/
+
+function x(){}
+/*... functions*/
+
+
+
 ```

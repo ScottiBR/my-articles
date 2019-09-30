@@ -11,3 +11,5 @@
 - [JavaScript Part 1](https://medium.com/the-andela-way/understanding-javascript-part-1-dbcca37b434d)
 - [Execution Context, scope chain and JavaScript Interals](https://hackernoon.com/execution-context-in-javascript-319dd72e8e2c)
 - [What is the Execution Context](http://davidshariff.com/blog/what-is-the-execution-context-in-javascript/)
+- [Allen Wirfs-Brock TDZ const](https://mail.mozilla.org/pipermail/es-discuss/2012-September/024996.html)
+- [Allen eliminate const from language](http://www.wirfs-brock.com/allen/)

@@ -29,26 +29,31 @@ At the compilation phase, the code is scanned and variables and functions are **
 Most commonly, people will explain hoisting as **declarations of variables and functions being moved to top of your code**, while this is what appears to be happening, it’s important to understand exactly what is going on. Because that definition **is a Myth** , a convention created to discuss the idea of lexical environment, without soo much overhead.
 
 ```js
+
 foo("Scotti");
 
 function foo(name) {
   console.log(name);
 }
+
 ```
 
 In this case, the function was called before it's definition, but it works, and seeking an easy explanation for that people starts saying that the function is lifted/moved up at the beginning of the code, like this.
 
 ```js
+
 function foo(name) {
   console.log(name);
 }
 
 foo("Scotti");
+
 ```
 
 But that's incorrect, there's no such thing as lifting functions and variables, you see, the code isn’t moving anywhere. It isn’t magically being moved to the top of the file. What's Actually happening is that at the compiler phase, all functions and variables declarations are **Hoisted** at Memory Heap which is called Lexical Environment. Then the Engine will execute the code from the top to the bottom adding every scope at the Execution Call Stack.
 
-> _Hoisting_ refers to the default behavior of Javascript to process and put all variables and functions declarations into memory first during compile phase of its execution context, regardless where they are written in code.
+> _Hoisting_ refers to the default behavior of Javascript to process and put all variables and functions declarations into memory first during compile phase of its execution context, regardless where they are written in code. *Maya Shavin*
+
 
 > _Lexical Environment_ is a data structure that holds identifier-variable mapping on the memory heap.
 
@@ -61,6 +66,7 @@ Difficult? Too many concepts? let's make it more simple. A few seconds before yo
 Let's see if those concepts can be put into practice.
 
 ```javascript
+
 say("Hello"); // Hello
 console.log(world); // world is undefined
 
@@ -69,6 +75,7 @@ function say(word) {
 }
 
 var world = "World";
+
 ```
 
 So in this example, the compiler will run thought the code and find the function `say` and save his reference into the memory, making it available to be called in the execution phase, returning `'Hello'`, but why the `world` variable is undefined?
@@ -78,7 +85,6 @@ So in this example, the compiler will run thought the code and find the function
 So the variable declaration `world` will be hoisted at the memory, and at the execution phase the variable is called, but since it isn't initialized yet the returned value is `undefined`, here's another example.
 
 ```javascript
-var x;
 
 if (x === undefined) {
   console.log("x is not defined");
@@ -86,7 +92,7 @@ if (x === undefined) {
   console.log(x);
 }
 
-x = "Defined";
+var x = "Defined";
 
 //result "x is not defined"
 ```
@@ -94,15 +100,13 @@ x = "Defined";
 Here the `x` variable is stored in memory during the compile phase but with the value of `undefined`, because the **assignment of value to a variable happens only in the execution phase**. so if we switch the declarations of `x`, see what happens.
 
 ```javascript
-x = "Defined";
+var x = "Defined";
 
 if (x === undefined) {
   console.log("x is not defined");
 } else {
   console.log(x);
 }
-
-var x;
 
 //result "Defined"
 ```
@@ -116,7 +120,8 @@ There's also a lot of confusion about variables undefined and undeclared (Refere
 So all the features of ES6 like `let` and `const`, what happens with them? are they hoisted? let's see
 
 ```javascript
-console.log(x); //ReferenceError: x is not defined
+console.log(x); 
+//ReferenceError: x is not defined
 
 let x = "Hello";
 ```
@@ -137,7 +142,8 @@ Now let's see what happens when we introduce the block scope.
 var name = "Guilherme";
 displayName();
 function displayName() {
-  console.log(name); // ReferenceError or TDZ error
+  console.log(name); 
+  // ReferenceError meaning TDZ error
   let name = "Scotti";
 }
 ```
@@ -157,16 +163,15 @@ There are three ways to define a function in the JavaScript and those are a func
 ```javascript
 hello(); // "Hello"
 world(); // TypeError: world is not a function
-exclamation(); // ReferenceError: exclamation is not defined
+exclamation(); 
+// ReferenceError: exclamation is not defined
 
 function hello() {
   console.log("Hello");
 }
-
 var world = function() {
   console.log("World");
 };
-
 const exclamation = () => console.log("!");
 ```
 
