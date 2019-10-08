@@ -176,7 +176,8 @@ d) undefined
 
 hello();
 
-function hello() {
+const hello = ()=>{}
+function hello() {}
   console.log("Hello");
   world();
 }
@@ -201,7 +202,7 @@ world();
 var hello = function() {
   console.log("Hello");
 };
-const World = () => console.log("World");
+const world = () => console.log("world");
 
 
 

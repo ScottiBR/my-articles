@@ -16,6 +16,7 @@ function b() {
 }
 function a() {
   var result = 2;
+  b();
 }
 var result = 1;
 a();
@@ -26,7 +27,7 @@ a();
 ```js
 function b() {
   console.log(result);
-} //result = 1
+}
 
 function a() {
   var result = 2;
