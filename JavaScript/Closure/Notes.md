@@ -141,6 +141,7 @@ function b() {
 }
 function a() {
   var result = 2;
+  b();
 }
 var result = 1;
 a();
