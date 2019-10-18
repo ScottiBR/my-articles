@@ -1,11 +1,8 @@
-
-
-hello();
-world();
-
-var hello = function() {
-  console.log("Hello");
-};
-
-const world = () => console.log("world");
-
+function b() {
+  console.log(result);
+}
+function a() {
+  var result = 2;
+}
+var result = 1;
+a();
