@@ -1,127 +1,3 @@
-# Porque aprender esses conceitos
-
-Why learn closure when I could be learning Node or React?
-
-Shouldn’t I be spending my time with understanding frameworks - they’re what I actually do on the job 👩🏽‍💻 Why should I learn closure in JavaScript??
-
-Becoming a developer who has mastery over their tools requires understanding what’s going on under-the-hood.
-
-True mastery means understanding the core principles and building up from them. That being said, being a developer is about having to make things work without understanding everything.
-
-They call it choosing your ‘level of abstraction’. You cannot understand everything down to the silicon.
-
-But that’s not the purpose of this course. The purpose of this course is for you take time out of ‘making it work to meet deadlines’ to truly understand a concept that will allow you to accelerate all your future engineering.
-
-Every time you understand something deeply it’s an investment for the future! It’s like building a system that’s more flexible and ready to scale. It’ll take time but it will pay off in the rest of your engineering ⏱.
-
-# porposta
-
-Não falar da compilation phase no primeiro capitulo passar para Execution envirioment
-no terceiro falar sobre Execution envirioment
-call stack event loop
-no quarto hoisting e continua
-Lexical Scope e explicar a metafora do prédio do kyle
-Closure
-
-# Hoisting é uma metafora
-
-Apesar de ser especificada no TC39, hoisting é an language convention created academicamente to discuss the idea of lexical envirioment, without soo much overhead
-
-```js
-console.log(a); //??
-console.log(b); //??
-var a = b;
-var b = 2;
-console.log(b); //2
-console.log(a); //??
-```
-
-```js
-var a;
-var b;
-console.log(a); //undefined
-console.log(b); //undefined
-a = b;
-b = 2;
-console.log(b); //2
-console.log(a); //undefined
-```
-
-# Hoisting move variable declarations and function declarations to the top of our code
-
-that' worng, that's just a easy way to say what the compiler do parsing your code, and managing the lexical scope
-
-# TDZ em outras palavras significa, não encoste nessa variável até ela ser inicializada no tempo de execução
-
-Sabemos como hoisting funciona, e como o lexical scope funciona, então porque o código abaixo está errado?
-
-```js
-var teacher = "Kyle";
-{
-  console.log(teacher); // ReferenceError or TDZ error
-  let teacher = "kyle";
-}
-```
-
-Porque quando o escopo global for compilado, vai alocar um espaço na memoria para teacher com valor undefined, no global scope
-depois vai iniciar o block scope, encontrar uma variável teacher nesse bloco, e alocala no TDZ, por isso ao chamar o console, recebemos um reference error
-
-# porque tdz existe? para forçar a utilizarmos Let e Const apenas após a sua inicialização? NÃO
-
-existe por um motivo academico, quando a equipe do ecmascript pensaram em criar const, eles encontraram um dilema, se o const inicializar undefined igual var, e depois assume um valor ao ser inicializado, quer dizer que é uma constante que em determinado periodo tem valor undefined e depois um valor definido, isso está errado constante tem que ser única imutável...
-então criaram o TDZ para não permitir esse comportamento, e como o let se encaixava mais nesse contexto adicionaram juntamente no pacode do TDZ
-
-may i quote Allen Wirfs-Brock project editor of the ECMAScript 2015
-
-> [As far as I'm concerned the motivating feature for TDZs is to provide a rational semantics for const. There was significant technical discussion of that topic and TDZs emerged as the best solution. An alternative argument you could make would be to eliminate const.](https://mail.mozilla.org/pipermail/es-discuss/2012-September/024996.html)
-
-mostrar as specs para provar
-
-e eu acho que eles fizeram um trabalho meio duvidosso nesse ponto, porque
-
-```js
-const words = "Hello TDC";
-words = "Bye TDC";
-// Type error
-
-const teachers = ["Hello", "TDC"];
-teachers[0] = "bye";
-// ['Bye','TDC'];
-```
-
-e isso é um problema que já ocorreu no java por exemplo, onde eles tiraram a palavra const para colocar final no lugar, evitando esse tipo de associação de uma constante que pode ser assigned to other value
-
-> [A language with only let and var would have been simpler then what we ended up with using const, let, and var.](http://www.wirfs-brock.com/allen/)
-
-MINHA OPINIÃO pessoal, é que você só deve usar const em tipos primitivos e imutáveis e não pelo hype do ES6, preffer let instead of const for reassingment variables
-
-um ganho com hoisting é que você pode declarar as funções no final do arquivo, e o core do código no topo, assim não precisa navegar o arquivo inteiro para entender o que o código faz, basta ler as primeiras linhas e se interessar pode verificar as functions no final
-MOstrar que é possível refatorar código colocando functions para fora do escopo, seguindo o padrão do clean code fazendo o código ficar mais redable, sem nested functions, mais flat
-
-# prefira function declaration over function expressios em certos casos
-
-Recursividade mutual, mutural recursion
-
-```js
-a(1);
-function a(x) {
-  if (x > 20) return x;
-  return b(x + 2);
-}
-function b(x) {
-  return c(x) + 1;
-}
-function c(x) {
-  return a(x * 2);
-}
-```
-
-https://frontendmasters.com/courses/deep-javascript-v3/lexical-scope-elevator/
-https://frontendmasters.com/courses/javascript-foundations/
-https://frontendmasters.com/courses/javascript-foundations/challenge-3-hoisting/
-
---
-
 That's why JavaScript creates an Execution Context in the following two stages:
 
 - Compilation / Creation Phase
@@ -130,88 +6,21 @@ That's why JavaScript creates an Execution Context in the following two stages:
 At the execution phase, the Engine runs the code line-by-line, top-down in order, and every time a function is about to be executed it's created a context for then and added to the Stack. Once all the code of the function is executed, JS engines pop out that function. Each function call creates a new context, which creates a Lexical Scope where anything declared inside of the function can not be directly accessed from outside the current function scope.
 
 ```js
-function foo(i) {
+function recursive(i) {
   if (i === 3) {
     return;
   } else {
-    foo(++i);
+    recursive(++i);
   }
 }
-foo(0);
+recursive(0);
 ```
 
-The code simply calls itself 3 times, incrementing the value of ´i´ by 1. Each time the function foo is called, a new execution context is created. Once a context has finished executing, it pops off the stack and control returns to the context below it until the global context is reached again.
+The code simply calls itself 3 times, incrementing the value of ´i´ by 1. Each
+time the function foo is called, a new execution context is created. Once a
+context has finished executing, it pops off the stack and control returns to
+the context below it until the global context is reached again.
 
 ![Execution Context](https://davidshariff.com/blog/wp-content/uploads/2012/06/es1.gif)
 
-```javascript
-say("Hello");
-console.log(world);
-
-var world = "World";
-
-function say(word) {
-  console.log(word);
-}
-a) "Hello"    "World"
-b) "Hello"    ReferenceError
-c) undefined  "World"
-d) "Hello"    undefined
-
-var name = "Guilherme";
-displayName();
-
-function displayName() {
-  console.log(name);
-
-  let name = "Scotti";
-}
-
-a) "Guilherme"
-b) "Scotti"
-c) ReferenceError
-d) undefined
-
-
-
-hello();
-
-const hello = ()=>{}
-function hello() {}
-  console.log("Hello");
-  world();
-}
-
-const world = function() {
-  console.log("World");
-};
-
-
-a) "Hello"    "World"
-b) "Hello"    ReferenceError
-c) "Hello"    undefined
-d) undefined  ReferenceError
-```
-
-```javascript
-hello();
-// TypeError: hello is not a function
-world();
-// ReferenceError: exclamation is not defined
-
-var hello = function() {
-  console.log("Hello");
-};
-const world = () => console.log("world");
-
-
-
-core execution code
-/*...*/
-
-function x(){}
-/*... functions*/
-
-
-
-```
+You can find many resources online defining the term hoisting in JavaScript, explaining that variable and function declarations are hoisted to the top of their function scope. However, none explain in detail why this happens, and armed with your new knowledge about how the interpreter creates the activation object, it is easy to see why. Take the following code example:

@@ -13,3 +13,4 @@
 - [What is the Execution Context](http://davidshariff.com/blog/what-is-the-execution-context-in-javascript/)
 - [Allen Wirfs-Brock TDZ const](https://mail.mozilla.org/pipermail/es-discuss/2012-September/024996.html)
 - [Allen eliminate const from language](http://www.wirfs-brock.com/allen/)
+- [Scope Chain](http://davidshariff.com/blog/javascript-scope-chain-and-closures/)
