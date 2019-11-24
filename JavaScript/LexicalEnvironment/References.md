@@ -1,6 +1,7 @@
 ## References
 
 - [You Don't Know JS](https://github.com/getify/You-Dont-Know-JS)
+- [What is the Execution Context](http://davidshariff.com/blog/what-is-the-execution-context-in-javascript/)
 - [JavaScript Named vs Anonymous Functions](https://www.linkedin.com/pulse/javascript-named-vs-anonymous-functions-chris-ng/)
 - [JavaScript Hoisting Var Let Const Variables](https://www.vojtechruzicka.com/javascript-hoisting-var-let-const-variables/)
 - [Are Named Functions Preferred over Anonymous](https://stackoverflow.com/questions/10081593/are-named-functions-preferred-over-anonymous-functions-in-javascript)
@@ -10,7 +11,7 @@
 - [JavaScript The Hard Parts](https://www.youtube.com/watch?v=3IV7WajC-o4)
 - [JavaScript Part 1](https://medium.com/the-andela-way/understanding-javascript-part-1-dbcca37b434d)
 - [Execution Context, scope chain and JavaScript Interals](https://hackernoon.com/execution-context-in-javascript-319dd72e8e2c)
-- [What is the Execution Context](http://davidshariff.com/blog/what-is-the-execution-context-in-javascript/)
 - [Allen Wirfs-Brock TDZ const](https://mail.mozilla.org/pipermail/es-discuss/2012-September/024996.html)
 - [Allen eliminate const from language](http://www.wirfs-brock.com/allen/)
 - [Scope Chain](http://davidshariff.com/blog/javascript-scope-chain-and-closures/)
+- [JavaScript a compiled Language](https://medium.com/@nickbalestra/javascripts-lexical-scope-hoisting-and-closures-without-mystery-c2324681d4be)

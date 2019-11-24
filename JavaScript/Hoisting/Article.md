@@ -2,6 +2,9 @@
 
 Most commonly, people will explain hoisting as **declarations of variables and functions being moved to top of your code**, while this is what appears to be happening, it’s important to understand exactly what is going on. Because that definition **is a Myth** , a convention created to discuss the idea of lexical environment, without soo much overhead.
 
+Hoisting is a term you will not find used in any normative specification prose prior to ECMAScript® 2015 Language Specification
+
+
 ```js
 foo("Scotti");
 
