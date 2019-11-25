@@ -1,8 +1,12 @@
-function b() {
-  console.log(result);
+for (var i = 0; i < 5; ++i) {
+  setTimeout(function() {
+    console.log(i);
+  }, 1000);
 }
-function a() {
-  var result = 2;
-}
-var result = 1;
-a();
+// 5 5 5 5 5
+/*for (let i = 0; i < 5; ++i) {
+  setTimeout(function() {
+    console.log(i);
+  }, 1000);
+}*/
+// 0 1 2 3 4

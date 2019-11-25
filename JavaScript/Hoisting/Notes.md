@@ -84,8 +84,8 @@ const words = "Hello TDC";
 words = "Bye TDC";
 // Type error
 
-const teachers = ["Hello", "TDC"];
-teachers[0] = "bye";
+const words = ["Hello", "TDC"];
+words[0] = "bye";
 // ['Bye','TDC'];
 ```
 
@@ -97,3 +97,13 @@ MINHA OPINIÃO pessoal, é que você só deve usar const em tipos primitivos e i
 
 um ganho com hoisting é que você pode declarar as funções no final do arquivo, e o core do código no topo, assim não precisa navegar o arquivo inteiro para entender o que o código faz, basta ler as primeiras linhas e se interessar pode verificar as functions no final
 MOstrar que é possível refatorar código colocando functions pa
+
+```js
+const words = "Hello TDC";
+words = "Bye TDC";
+// Type error
+
+const words = ["Hello", "TDC"];
+words[0] = "bye";
+// ['Bye','TDC'];
+```

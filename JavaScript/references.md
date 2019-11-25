@@ -19,3 +19,4 @@
 - [Understanding closures](https://github.com/ericdouglas/traduz-ai/blob/master/javascript/004-entenda-closures-no-javaScript-com-facilidade.md)
 - [What are closures](https://medium.com/@stephanowallace/javascript-mas-afinal-o-que-s%C3%A3o-closures-4d67863ca9fc)
 - [MDN Closure and Lexical Scope](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures#Lexical_scoping)
+- [Google interview question](https://www.reddit.com/r/javascript/comments/7535tm/amazon_web_developer_loop_timeout_interview/)
