@@ -1,12 +1,37 @@
-for (var i = 0; i < 5; ++i) {
-  setTimeout(function() {
-    console.log(i);
-  }, 1000);
+class ButtonPrimary extends HTMLElement {
+  constructor() {
+    super();
+    //...
+  }
+  get disabled() {
+    return this.hasAttribute("disabled");
+  }
+
+  set disabled(val) {
+    if (val) {
+      this.setAttribute("disabled", "");
+    } else {
+      this.removeAttribute("disabled");
+    }
+  }
 }
-// 5 5 5 5 5
-/*for (let i = 0; i < 5; ++i) {
-  setTimeout(function() {
-    console.log(i);
-  }, 1000);
-}*/
-// 0 1 2 3 4
+
+customElements.define("component-name", ButtonPrimary);
+/*
+class FancyButton extends HTMLButtonElement {
+  constructor() {
+    super();
+    //...
+  }
+}
+
+customElements.define("fancy-button", FancyButton, { extends: "button" });
+
+<ButtonPrimary large disabled>
+  Button
+</ButtonPrimary>;
+
+const button = document.querySelector("button-primary");
+button.large = true;
+button.disabled = true;
+*/
